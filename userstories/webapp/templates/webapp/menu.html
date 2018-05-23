@@ -1,0 +1,9 @@
+{% load i18n %}
+<ul>
+    <li><a href="{% url 'webapp:anwendungen_list' %}">{% trans 'Anwendungen' %}</a></li>
+    <li><a href="{% url 'webapp:userstories_list' %}">{% trans 'Userstories' %}</a></li>
+    <li><a href="{% url 'webapp:rollen_list' %}">{% trans 'Rollen' %}</a></li>
+    <li><a href="{% url 'webapp:glossareintraege_list' %}">{% trans 'Glossar' %}</a></li>
+    <li><a href="{% url 'webapp:schlagworte_list' %}">{% trans 'Schlagworte' %}</a></li>
+    <li><a href="{% url 'webapp:notizen_list' %}">{% trans 'Notizen' %}</a></li>
+</ul>

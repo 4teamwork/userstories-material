@@ -1,0 +1,61 @@
+{% extends 'material/frontend/views/detail.html' %}
+{% load i18n material_frontend humanize %}
+
+
+{% block breadcrumbs_items %}
+<a href="{{ object.anwendung.get_absolute_url }}">{{ object.anwendung }}</a>
+<a class="active">{{ object }}</a>
+{% endblock %}
+
+{% block content %}
+<div class="left-panel">
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">{{ object }}</div>
+
+      <div>
+      Als <b>{{ object.rolle }}</b> möchte ich {{ object.text_als }} damit ich {{ object.text_damit }}
+      </div>
+      <div class="secondary-content">Erfüllungsgrad: <b>{{ object.erfuellungsgrad }}%</b></div>
+    </div>
+    <div class="card-action">
+        <div class="right-align">
+            {% if delete_url %}<a class="waves-effect waves-light btn red white-text" href="{{ delete_url }}">{% trans 'Delete' %}</a>{% endif %}
+            {% if change_url %}<a class="waves-effect waves-light btn white-text" href="{{ change_url }}">{% trans 'Change' %}</a>{% endif %}
+        </div>
+    </div>
+  </div>
+
+  <div class="card">
+      <div class="card-content">
+          <div class="card-title">{% trans 'Notizen' %}</div>
+          <table>
+              <thead>
+                  <tr>
+                      <td>{% trans 'Datum' %}</td>
+                      <td>{% trans 'Benutzer' %}</td>
+                      <td>{% trans 'Text' %}</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for notiz in object.notizen_set.all|slice:":10" %}
+                  <tr>
+                      <td>{{notiz.datum}}</td>
+                      <td>{{notiz.user}}</td>
+                      <td>
+
+                        <p><a href="{{ notiz.get_absolute_url }}">{{notiz.text}}</a></p>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

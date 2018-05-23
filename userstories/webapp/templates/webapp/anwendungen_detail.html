@@ -1,0 +1,75 @@
+{% extends 'material/frontend/views/detail.html' %}
+{% load i18n material_frontend humanize %}
+
+{% block breadcrumbs_items %}
+<a class="active">{{ object }}</a>
+{% endblock %}
+
+{% block content %}
+<div class="left-panel">
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">{{ object }}</div>
+    </div>
+    <div class="card-action">
+        <div class="right-align">
+            {% if delete_url %}<a class="waves-effect waves-light btn red white-text" href="{{ delete_url }}">{% trans 'Delete' %}</a>{% endif %}
+            {% if change_url %}<a class="waves-effect waves-light btn white-text" href="{{ change_url }}">{% trans 'Change' %}</a>{% endif %}
+        </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">{{ object.rollen_set.all.count }}  {% trans 'Rollen' %}</div>
+      <div class="row">
+        {% for rolle in object.rollen_set.all|slice:":10" %}
+          <div class="col s8">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-title">{{ rolle.rolle }}</div>
+                <p>{{ rolle.beschreibung }}</p>
+                <div class="secondary-content">{{ rolle.userstories_set.count }} Userstories </div>
+              </div>
+              <div class="card-action">
+                <a href='{{ rolle.get_absolute_url }}'>Details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <a href="/webapp/rollen/add/" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">add</i></a>
+
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">{{ object.userstories_set.all.count }} {% trans 'Userstories' %}</div>
+      <div class="row">
+        {% for userstory in object.userstories_set.all|slice:":10" %}
+          <div class="col s8">
+            <div class="card {{ userstory.color }}">
+              <div class="card-content white-text" >
+                <p>Als <a href="{{ userstory.rolle.get_absolute_url}}">{{userstory.rolle}}</a> möchte ich {{ userstory.text_als }} damit ich {{ userstory.text_damit }}.</p>
+                <div class="secondary-content white-text">Erfüllungsgrad {{ userstory.erfuellungsgrad }}%</div>
+
+              </div>
+              <div class="card-action white-text">
+                <a href='{{ userstory.get_absolute_url }}'>Details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <a href="/webapp/userstories/add/" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">add</i></a>
+
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

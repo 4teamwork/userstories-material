@@ -1,0 +1,50 @@
+{% extends 'material/frontend/views/detail.html' %}
+{% load i18n material_frontend humanize %}
+
+{% block breadcrumbs_items %}
+<a href="{{ object.anwendung.get_absolute_url }}">{{ object.anwendung }}</a>
+<a class="active">{{ object }}</a>
+{% endblock %}
+
+{% block content %}
+<div class="left-panel">
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">{{ object }}</div>
+      <p>{{ object.beschreibung }}</p>
+    </div>
+    <div class="card-action">
+        <div class="right-align">
+            {% if delete_url %}<a class="waves-effect waves-light btn red white-text" href="{{ delete_url }}">{% trans 'Delete' %}</a>{% endif %}
+            {% if change_url %}<a class="waves-effect waves-light btn white-text" href="{{ change_url }}">{% trans 'Change' %}</a>{% endif %}
+        </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">{{ object.userstories_set.all.count }} {% trans 'Userstories' %}</div>
+      <div class="row">
+        {% for userstory in object.userstories_set.all|slice:":10" %}
+          <div class="col s8">
+            <div class="card">
+              <div class="card-content">
+                <p>Als <a href="{{ userstory.rolle.get_absolute_url}}">{{userstory.rolle}}</a> möchte ich {{ userstory.text_als }} damit ich {{ userstory.text_damit }}.</p>
+                <div class="secondary-content">Erfüllungsgrad {{ userstory.erfuellungsgrad }}%</div>
+
+              </div>
+              <div class="card-action">
+                <a href='{{ userstory.get_absolute_url }}'>Details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}
