@@ -8,14 +8,14 @@ A few steps are needed to setup the viewflow demo.
 Run these steps within the project folder.
 
 1. Clone the repository:
-'''
+```
 git clone git@github.com:4teamwork/userstories-material.git
-'''
+```
 
 2. Change to repository
-'''
-cd userstories-materials
-'''
+```
+cd userstories-material
+```
 
 3. Create and activate a python virtual environment:
 ```
