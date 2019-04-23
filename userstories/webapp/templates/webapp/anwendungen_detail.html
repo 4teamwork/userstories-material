@@ -11,6 +11,7 @@
   <div class="card">
     <div class="card-content">
       <div class="card-title">{{ object }}</div>
+      <p>{{ object.beschreibung }}</p>
     </div>
     <div class="card-action">
         <div class="right-align">
@@ -73,3 +74,8 @@
 
 
 {% endblock %}
+{% block footer %}
+<div class="container">
+  Hello
+</div>
+{% endblock footer %}

@@ -30,7 +30,7 @@ class GlossareintraegeViewSet(ModelViewSet):
 
 class AnwendungenViewSet(ModelViewSet):
     model = models.Anwendungen
-    list_display = ('titel',)
+    list_display = ('titel', 'beschreibung')
 
 class NotizenViewSet(ModelViewSet):
     model = models.Notizen

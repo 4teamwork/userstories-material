@@ -8,6 +8,7 @@ from django.conf import settings
 
 class Anwendungen(models.Model):
     titel = models.CharField(max_length=150)
+    beschreibung = models.TextField(blank=True, verbose_name=_('Beschreibung'))
 
     class Meta:
         verbose_name = _('Anwendung')
@@ -21,7 +22,7 @@ class Anwendungen(models.Model):
         return "/webapp/anwendungen/{}/detail".format(self.id)
 
 class Rollen(models.Model):
-    anwendung = models.ForeignKey(Anwendungen, blank=True, verbose_name=_('Anwendung'))
+    anwendung = models.ForeignKey(Anwendungen, blank=True, on_delete=models.CASCADE, verbose_name=_('Anwendung'))
     rolle = models.CharField(max_length=250, verbose_name=_('Rolle'))
     beschreibung = models.TextField(blank=True, verbose_name=_('Beschreibung'))
 
@@ -65,9 +66,9 @@ class Glossareintraege(models.Model):
         return "/webapp/glossarentraege/{}/detail".format(self.id)
 
 class Userstories(models.Model):
-    anwendung = models.ForeignKey(Anwendungen, blank=True, verbose_name=_('Anwendung'))
+    anwendung = models.ForeignKey(Anwendungen, blank=True, on_delete=models.CASCADE, verbose_name=_('Anwendung'))
     titel = models.CharField(max_length=150)
-    rolle = models.ForeignKey(Rollen, blank=True, verbose_name=_('Als...'))
+    rolle = models.ForeignKey(Rollen, blank=True, on_delete=models.CASCADE, verbose_name=_('Als...'))
     text_als = models.TextField(verbose_name=_('Möchte ich...'))
     text_damit = models.TextField(verbose_name=_('Damit ich...'))
 
@@ -84,7 +85,7 @@ class Userstories(models.Model):
 
     def color(self):
         if self.erfuellungsgrad == 100:
-            return "green darken-1"        
+            return "green darken-1"
         if self.erfuellungsgrad > 80:
             return "green lighten-4"
         elif self.erfuellungsgrad < 30:
@@ -103,7 +104,7 @@ class Notizen(models.Model):
 
     updated_at = models.DateTimeField(auto_now=True)
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     userstory = models.ForeignKey(Userstories, blank=True, null=True, on_delete=models.CASCADE)
 
