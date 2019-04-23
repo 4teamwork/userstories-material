@@ -14,10 +14,10 @@
       <p>{{ object.beschreibung }}</p>
     </div>
     <div class="card-action">
-        <div class="right-align">
-            {% if delete_url %}<a class="waves-effect waves-light btn red white-text" href="{{ delete_url }}">{% trans 'Delete' %}</a>{% endif %}
-            {% if change_url %}<a class="waves-effect waves-light btn white-text" href="{{ change_url }}">{% trans 'Change' %}</a>{% endif %}
-        </div>
+      <div class="right-align">
+        {% if delete_url %}<a class="waves-effect waves-light btn red white-text" href="{{ delete_url }}">{% trans 'Delete' %}</a>{% endif %}
+        {% if change_url %}<a class="waves-effect waves-light btn white-text" href="{{ change_url }}">{% trans 'Change' %}</a>{% endif %}
+      </div>
     </div>
   </div>
 
@@ -26,18 +26,18 @@
       <div class="card-title">{{ object.rollen_set.all.count }}  {% trans 'Rollen' %}</div>
       <div class="row">
         {% for rolle in object.rollen_set.all|slice:":10" %}
-          <div class="col s8">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-title">{{ rolle.rolle }}</div>
-                <p>{{ rolle.beschreibung }}</p>
-                <div class="secondary-content">{{ rolle.userstories_set.count }} Userstories </div>
-              </div>
-              <div class="card-action">
-                <a href='{{ rolle.get_absolute_url }}'>Details</a>
-              </div>
+        <div class="col s8">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-title">{{ rolle.rolle }}</div>
+              <p>{{ rolle.beschreibung }}</p>
+              <div class="secondary-content">{{ rolle.userstories_set.count }} Userstories </div>
+            </div>
+            <div class="card-action">
+              <a href='{{ rolle.get_absolute_url }}'>Details</a>
             </div>
           </div>
+        </div>
         {% endfor %}
       </div>
       <a href="/webapp/rollen/add/" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">add</i></a>
@@ -51,18 +51,18 @@
       <div class="card-title">{{ object.userstories_set.all.count }} {% trans 'Userstories' %}</div>
       <div class="row">
         {% for userstory in object.userstories_set.all|slice:":10" %}
-          <div class="col s8">
-            <div class="card {{ userstory.color }}">
-              <div class="card-content white-text" >
-                <p>Als <a href="{{ userstory.rolle.get_absolute_url}}">{{userstory.rolle}}</a> möchte ich {{ userstory.text_als }} damit ich {{ userstory.text_damit }}.</p>
-                <div class="secondary-content white-text">Erfüllungsgrad {{ userstory.erfuellungsgrad }}%</div>
+        <div class="col s8">
+          <div class="card {{ userstory.color }}">
+            <div class="card-content white-text" >
+              <p>Als <a href="{{ userstory.rolle.get_absolute_url}}">{{userstory.rolle}}</a> möchte ich {{ userstory.text_als }} damit ich {{ userstory.text_damit }}.</p>
+              <div class="secondary-content white-text">Erfüllungsgrad {{ userstory.erfuellungsgrad }}%</div>
 
-              </div>
-              <div class="card-action white-text">
-                <a href='{{ userstory.get_absolute_url }}'>Details</a>
-              </div>
+            </div>
+            <div class="card-action white-text">
+              <a href='{{ userstory.get_absolute_url }}'>Details</a>
             </div>
           </div>
+        </div>
         {% endfor %}
       </div>
       <a href="/webapp/userstories/add/" class="btn-floating btn-small waves-effect waves-light green"><i class="material-icons">add</i></a>
@@ -70,12 +70,69 @@
     </div>
   </div>
 
-</div>
 
+  {% block contentfooter%}
+
+  {% comment %}
+  This works. However, the Footer is not inbeetween <footer> tags.
+  {% endcomment %}
+
+  <div class="row black">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Footer Content</h5>
+        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Links</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © 2014 Copyright Text
+      <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    </div>
+  </div>
+  {% endblock %}
+
+</div>
 
 {% endblock %}
+
+{% comment %}
+This does't seem to work. The footer appeares in the middle of the page, not at the bottom.
+{% endcomment %}
+
 {% block footer %}
-<div class="container">
-  Hello
+<div class="row black">
+  <div class="row">
+    <div class="col l6 s12">
+      <h5 class="white-text">Footer Content</h5>
+      <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+    </div>
+    <div class="col l4 offset-l2 s12">
+      <h5 class="white-text">Links</h5>
+      <ul>
+        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
+<div class="footer-copyright">
+  <div class="container">
+    © 2014 Copyright Text
+    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+  </div>
+</div>
+
 {% endblock footer %}
